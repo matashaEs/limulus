@@ -1,0 +1,15 @@
+---
+interface Props {
+  label: string;
+  color?: "yellow" | "green" | "blue" | "red";
+  onClick?: string;
+}
+
+const { label, color = "yellow", onClick } = Astro.props;
+
+const className = `category-button category-button--${color}`;
+---
+
+<button class={className} {...onClick ? { "data-onclick": onClick } : {}}>
+  {label}
+</button>

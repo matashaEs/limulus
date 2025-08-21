@@ -1,63 +1,138 @@
+@use './mixins.scss' as *;
+
 body {
-    font-family: var(--font-primary);
-    color: var(--dark-grey);
-    font-weight: 400;
-    line-height: 1.2;
+  font-family: var(--font-primary);
+  color: var(--dark-grey);
+  font-weight: 400;
+  line-height: 1.2;
 }
 
 h1,
 .h1 {
-    font-family: var(--font-secondary);
+  font-family: var(--font-secondary);
+  font-size: 36px;
+  line-height: 1;
+  margin: 0;
+
+  @include min-size(md) {
+    font-size: 44px;
+  }
+
+  @include min-size(lg) {
     font-size: 60px;
-    margin: 0;
+  }
 }
 
 h2,
 .h2 {
-    font-family: var(--font-secondary);
+  font-family: var(--font-secondary);
+  font-size: 28px;
+  margin: 0;
+
+  @include min-size(md) {
+    font-size: 36px;
+  }
+
+  @include min-size(lg) {
     font-size: 48px;
-    margin: 0;
+  }
 }
 
 h3,
 .h3 {
+  font-size: 24px;
+  font-weight: 500;
+  margin: 0;
+
+  @include min-size(md) {
+    font-size: 30px;
+  }
+
+  @include min-size(lg) {
     font-size: 40px;
-    font-weight: 500;
-    margin: 0;
+  }
 }
 
 h4,
 .h4 {
+  font-size: 22px;
+  font-weight: 500;
+  margin: 0;
+
+  @include min-size(md) {
+    font-size: 26px;
+  }
+
+  @include min-size(lg) {
     font-size: 36px;
-    font-weight: 500;
-    margin: 0;
+  }
 }
 
 h5,
 .h5 {
+  font-size: 20px;
+  font-weight: 500;
+  margin: 0;
+
+  @include min-size(md) {
+    font-size: 24px;
+  }
+
+  @include min-size(lg) {
     font-size: 32px;
-    font-weight: 500;
-    margin: 0;
+  }
 }
 
 h6,
 .h6 {
-    font-family: var(--font-secondary);
+  font-family: var(--font-secondary);
+  font-size: 20px;
+  margin: 0;
+
+  @include min-size(md) {
+    font-size: 24px;
+  }
+
+  @include min-size(lg) {
     font-size: 32px;
-    margin: 0;
+  }
 }
 
 p,
 .p {
+  font-size: 16px;
+  font-weight: 400;
+  margin: 0;
+
+  @include min-size(md) {
+    font-size: 18px;
+  }
+
+  @include min-size(lg) {
     font-size: 20px;
-    font-weight: 400;
-    margin: 0;
+  }
 
-    &--small {
-        font-size: 16px;
+  &--small {
+    font-size: 12px;
+
+    @include min-size(md) {
+      font-size: 14px;
     }
 
-     &--big {
-        font-size: 24px;
+    @include min-size(lg) {
+      font-size: 16px;
     }
+  }
+
+  &--big {
+    font-size: 18px;
+
+    @include min-size(md) {
+      font-size: 20px;
+    }
+
+    @include min-size(lg) {
+      font-size: 24px;
+    }
+  }
 }

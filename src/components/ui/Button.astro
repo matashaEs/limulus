@@ -1,0 +1,32 @@
+---
+interface Props {
+  label: string;
+  href?: string;
+  type?: "button" | "submit";
+  white?: boolean;
+  class?: string;
+}
+
+const {
+  label,
+  href,
+  type = "button",
+  white = false,
+  class: externalClass = "",
+} = Astro.props;
+
+const className =
+  `${white ? "button button--white" : "button"} ${externalClass}`.trim();
+---
+
+{
+  href ? (
+    <a href={href} class={className}>
+      {label}
+    </a>
+  ) : (
+    <button type={type} class={className}>
+      {label}
+    </button>
+  )
+}

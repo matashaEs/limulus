@@ -1,0 +1,28 @@
+---
+import MacBook from "../assets/MacBook.png";
+import Button from "../components/ui/Button.astro";
+---
+
+<div class="container-fluid hero">
+  <div class="container hero-container">
+    <div class="hero-left">
+      <h1>Limulus AI</h1>
+      <h4 class="hero-title">
+        Koniec z „no-reply”. Czas na AI, które zawsze odpowiada.
+      </h4>
+      <p class="hero-content">
+        Czy Twoja skrzynka kontaktowa milczy, choć klienci pytają?<br /><br />
+        Limulus AI to rewolucyjna technologia, która zmienia jednostronne wiadomości
+        w rozmowy, automatyzuje odpowiedzi i rozwiązuje problemy klientów szybciej
+        niż ktokolwiek z Twojego zespołu.
+      </p>
+      <p class="p--big">
+        Zapisz się na event i zobacz, jak Limulus AI działa na żywo!
+      </p>
+      <Button class="hero-button" label="Zapisz się" href="#about" />
+    </div>
+    <div class="hero-right">
+      <img src={MacBook.src} alt="MacBook z Limulus AI" />
+    </div>
+  </div>
+</div>

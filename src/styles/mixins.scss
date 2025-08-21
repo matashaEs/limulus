@@ -1,0 +1,17 @@
+@use "sass:math";
+
+@mixin min-size($size) {
+  @if $size == md {
+    @media (min-width: 768px) {
+      @content;
+    }
+  } @else if $size == lg {
+    @media (min-width: 1024px) {
+      @content;
+    }
+  } @else if $size == xl {
+    @media (min-width: 1920px) {
+      @content;
+    }
+  }
+}

@@ -1,0 +1,41 @@
+button,
+.button {
+    padding: 14px 32px;
+    width: fit-content;
+    background: var(--accent);
+    border: none;
+    border-radius: 16px;
+    color: var(--grey-light);
+    font-size: 20px;
+    font-family: var(--font-primary);
+    text-decoration: none;
+
+    &--white {
+        color: var(--accent);
+        background: var(--white);
+    }
+}
+
+.category-button {
+    font-size: 16px;
+    padding: 8px 20px;
+    border-radius: 40px;
+    width: fit-content;
+    font-weight: 500;
+
+    &--yellow {
+        background: var(--yellow);
+    }
+
+    &--green {
+        background: var(--green);
+    }
+
+    &--blue {
+        background: var(--blue);
+    }
+
+    &--red {
+        background: var(--red);
+    }
+}
