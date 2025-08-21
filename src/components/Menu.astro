@@ -1,0 +1,29 @@
+---
+import Logo from "../assets/icons/logo.svg";
+import Button from "../components/ui/Button.astro";
+---
+
+<div class="container-fluid menu">
+  <div class="container menu-container">
+    <a href="/limulus">
+      <img src={Logo.src} alt="Limulus logo" class="menu-logo" />
+    </a>
+    <div class="menu-right">
+      <a href="/limulus/" class="p--big menu-blog">Blog</a>
+      <Button label="Zapisz się" href="#about" white />
+    </div>
+  </div>
+</div>
+
+<div class="container-fluid mobile-menu">
+  <div class="menu-top container">
+    <a href="/limulus">
+      <img src={Logo.src} alt="Limulus logo" class="menu-logo" />
+    </a>
+    <a href="/limulus/" class="p--big menu-blog">Blog</a>
+  </div>
+</div>
+
+<div class="container-fluid menu-bottom">
+  <Button label="Zapisz się" href="#about" class="cta-button" />
+</div>
