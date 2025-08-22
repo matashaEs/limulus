@@ -1,33 +1,37 @@
-// FAQ Toggle functionality
 document.addEventListener('DOMContentLoaded', function() {
+  // FAQ Toggle functionality
   const faqItems = document.querySelectorAll('.faq-item');
+  const dividers = document.querySelectorAll('.faq-divider');
   
+  const setDividersAround = (item, collapsed) => {
+    const prev = item.previousElementSibling;
+    const next = item.nextElementSibling;
+    [prev, next].forEach(el => {
+      if (el && el.classList.contains('faq-divider')) {
+        el.classList.toggle('is-collapsed', collapsed);
+      }
+    });
+  };
+
   faqItems.forEach(item => {
     const question = item.querySelector('.faq-question');
-    const answer = item.querySelector('.faq-answer');
     const toggle = item.querySelector('.faq-toggle');
     
-    // Initially hide all answers
-    answer.style.display = 'none';
-    
     question.addEventListener('click', () => {
-      const isOpen = answer.style.display !== 'none';
+      const isActive = item.classList.contains('active');
       
-      // Close all other FAQ items
       faqItems.forEach(otherItem => {
-        if (otherItem !== item) {
-          otherItem.querySelector('.faq-answer').style.display = 'none';
-          otherItem.querySelector('.faq-toggle').textContent = '+';
-        }
+        otherItem.classList.remove('active');
+        otherItem.querySelector('.faq-toggle').textContent = '+';
       });
-      
-      // Toggle current item
-      if (isOpen) {
-        answer.style.display = 'none';
-        toggle.textContent = '+';
-      } else {
-        answer.style.display = 'block';
+       dividers.forEach(d => d.classList.remove('is-collapsed'));
+
+      if (!isActive) {
+        item.classList.add('active');
         toggle.textContent = '−';
+        setDividersAround(item, true)
+      } else {
+        toggle.textContent = '+';
       }
     });
   });
