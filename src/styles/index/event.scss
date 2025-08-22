@@ -52,6 +52,7 @@
             width: 90%;
             z-index: 1;
             height: 90%;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
         }
 
         img {
@@ -64,6 +65,7 @@
             bottom: -10%;
             object-fit: cover;
             object-position: center;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
         }
     }
 }

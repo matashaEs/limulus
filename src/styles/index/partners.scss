@@ -1,0 +1,65 @@
+@use '../mixins.scss' as *;
+
+.partners {
+    background: var(--primary-900);
+    padding: 64px 0;
+    color: var(--grey);
+
+    &-content {
+        margin-top: 32px;
+    }
+
+    &-card-container {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        padding: 24px;
+        border-radius: 16px;
+        margin-top: 32px;
+        display: flex;
+        justify-content: space-between;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        flex-wrap: wrap;
+    }
+
+    &-card {
+        text-align: center;
+        min-width: 120px;
+    }
+
+    &-divider {
+        background: var(--grey);
+        opacity: 40%;
+        margin: 20px 0;
+    }
+
+    img {
+        width: 64px;
+        height: 64px;
+    }
+
+    &-label {
+        opacity: 40%;
+    }
+}
+
+@include min-size(lg) {
+    .partners {
+        padding: 120px 0;
+
+        &-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        &-content {
+            width: 40%;
+        }
+
+        &-card-container {
+            padding: 32px;
+            gap: 32px;
+            flex-wrap: nowrap;
+        }
+    }
+}
