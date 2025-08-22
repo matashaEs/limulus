@@ -1,3 +1,7 @@
+---
+import Events from "../assets/event.webp";
+---
+
 <section class="booking">
   <div class="container">
     <div class="booking-content">
@@ -6,8 +10,9 @@
         <h5 class="booking-subtitle">
           Nie czekaj, aż konkurencja zacznie działać szybciej od Ciebie.
         </h5>
-        <div class="booking-image">
-          <div class="booking-placeholder"></div>
+        <div class="booking-image-container">
+          <img src={Events.src} alt="Lokalizacja" />
+          <div class="booking-image-overlay"></div>
         </div>
       </div>
       <div class="booking-form">
