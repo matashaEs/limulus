@@ -3,7 +3,7 @@ import Logo from "../assets/icons/logo.svg";
 import Button from "../components/ui/Button.astro";
 ---
 
-<div class="container-fluid menu">
+<header class="container-fluid menu">
   <div class="container menu-container">
     <a href="/limulus">
       <img src={Logo.src} alt="Limulus logo" class="menu-logo" />
@@ -13,16 +13,16 @@ import Button from "../components/ui/Button.astro";
       <Button label="Zapisz się" href="#about" white />
     </div>
   </div>
-</div>
+</header>
 
-<div class="container-fluid mobile-menu">
+<header class="container-fluid mobile-menu">
   <div class="menu-top container">
     <a href="/limulus">
       <img src={Logo.src} alt="Limulus logo" class="menu-logo" />
     </a>
     <a href="/limulus/" class="p--big menu-blog">Blog</a>
   </div>
-</div>
+</header>
 
 <div class="container-fluid menu-bottom">
   <Button label="Zapisz się" href="#about" class="cta-button" />
