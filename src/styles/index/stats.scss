@@ -1,0 +1,63 @@
+@use '../mixins.scss' as *;
+
+.stats {
+    padding: 64px 0;
+
+    &-grid {
+        margin-top: 32px;
+        display: flex;
+        flex-direction: column;
+        gap: 40px;
+
+        img {
+            width: 1px;
+            height: 240px;
+            object-fit: contain;
+            flex-shrink: 0;
+            flex-grow: 0;
+        }
+    }
+
+    &-item {
+        text-align: center;
+    }
+
+    &-line {
+        display: none;
+    }
+
+    &-number {
+        font-size: 96px;
+        font-family: var(--font-secondary);
+        font-weight: 800;
+        color: var(--accent);
+
+        &--font {
+            font-family: var(--font-primary);
+            font-size: 64px;
+        }
+    }
+}
+
+@include min-size(lg) {
+    .stats {
+        padding: 128px 0;
+
+        &-grid {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            gap: 0;
+        }
+
+        &-line {
+            display: block;
+        }
+
+
+        &-number {
+            margin-bottom: 32px;
+        }
+    }
+}
