@@ -1,0 +1,59 @@
+---
+import Gear from "../assets/icons/gear.svg";
+import Idea from "../assets/icons/idea.svg";
+import Read from "../assets/icons/read.svg";
+import Rf from "../assets/icons/rf.svg";
+---
+
+<section class="feature">
+  <div class="container">
+    <h2>Co potrafi Limulus AI?</h2>
+    <p class="feature-subtitle">
+      Limulus AI to nie chatbot. To inteligentny system obsługi klienta, który:
+    </p>
+    <div class="feature-grid">
+      <div class="feature-card">
+        <div class="feature-image">
+          <img src={Idea.src} alt="Analiza" />
+        </div>
+        <p class="p-title">Rozumie intencje klientów</p>
+        <p class="p--small">
+          Dzięki modelom językowym, Limulus AI analizuje zgłoszenia w języku
+          naturalnym (tekst, głos, formularze), rozpoznając kontekst i cel
+          użytkownika.
+        </p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-image">
+          <img src={Gear.src} alt="Automatyzuja" />
+        </div>
+        <p class="p-title">Automatyzuje działania</p>
+        <p class="p--small">
+          System samodzielnie wykonuje operacje takie jak reset hasła, zmiana
+          statusu, tworzenie konta, zwrot środków poprzez integrację z API
+          Twoich systemów.
+        </p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-image">
+          <img src={Rf.src} alt="Obsługa wiele kanałów" />
+        </div>
+        <p class="p-title">Obsługuje wiele kanałów</p>
+        <p class="p--small">
+          Działa w modelu omnichannel: e‑mail, czat, SMS, formularze, spójna
+          obsługa bez względu na kanał.
+        </p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-image">
+          <img src={Read.src} alt="Bazy wiedzy" />
+        </div>
+        <p class="p-title">Korzysta z bazy wiedzy</p>
+        <p class="p--small">
+          Precyzyjnie odpowiada na pytania klientów na podstawie Twoich danych,
+          instrukcji i FAQ bez konieczności „uczenia” go wszystkiego od nowa.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
