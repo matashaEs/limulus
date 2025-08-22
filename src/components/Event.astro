@@ -1,0 +1,32 @@
+---
+import Location from "../assets/icons/location.svg";
+import Events from "../assets/event.webp";
+import Button from "../components/ui/Button.astro";
+---
+
+<section class="event">
+  <div class="container">
+    <h2>Najbliższe wydarzenie:</h2>
+    <div class="event-container">
+      <div class="event-content">
+        <p class="event-date p--small">23 września 2025 | 17:30–20:30</p>
+        <h6 class="event-title">Limulus AI Live Demo Day</h6>
+        <div class="event-location">
+          <img src={Location.src} alt="Lokalizacja" />
+          <p class="location-text">Warszawa, ul. Krucza 16/22</p>
+        </div>
+        <p class="event-description">
+          Networking + pokaz działania systemu + Q&A z zespołem wdrożeniowym
+        </p>
+        <Button class="event-button" label="Zapisz się" href="#about" />
+      </div>
+
+      <div class="event-image">
+        <div class="event-image-container">
+          <img src={Events.src} alt="Lokalizacja" />
+          <div class="event-image-overlay"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,13 +1,15 @@
+@use './mixins.scss' as *;
+
 button,
 .button {
-    padding: 14px 32px;
+    padding: 10px 24px;
     width: fit-content;
     height: fit-content;
     background: var(--accent);
     border: none;
-    border-radius: 16px;
+    border-radius: 12px;
     color: var(--grey-light);
-    font-size: 20px;
+    font-size: 16px;
     font-family: var(--font-primary);
     text-decoration: none;
 
@@ -38,5 +40,15 @@ button,
 
     &--red {
         background: var(--red);
+    }
+}
+
+@include min-size(md) {
+
+    button,
+    .button {
+        padding: 14px 32px;
+        font-size: 20px;
+        border-radius: 16px;
     }
 }
