@@ -1,5 +1,6 @@
 ---
 import "../styles/main.scss";
+const { title = "Limulus", description } = Astro.props;
 ---
 
 <!doctype html>
@@ -7,9 +8,10 @@ import "../styles/main.scss";
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <link rel="icon" type="image/svg+xml" />
     <meta name="generator" content={Astro.generator} />
-    <title>Limulus</title>
+    <title>{title}</title>
+    {description && <meta name="description" content={description} />}
+    <link rel="icon" type="image/svg+xml" />
   </head>
   <body>
     <slot />

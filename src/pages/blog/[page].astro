@@ -1,0 +1,139 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Menu from "../../components/Menu.astro";
+import Footer from "../../components/Fotter.astro";
+import BlogCard from "../../components/ui/BlogCard.astro";
+import { getCollection } from "astro:content";
+import type { BlogPost } from "../../types/blog";
+import BlogHero from "../../assets/blog/blog-hero.jpg";
+import ArrowRight from "../../assets/icons/arrow-right.svg";
+import ArrowLeft from "../../assets/icons/arrow-left.svg";
+
+export async function getStaticPaths() {
+  const PER_PAGE = 6;
+  const posts: BlogPost[] = (
+    await getCollection<"blog">("blog", (entry: BlogPost) => !entry.data.draft)
+  ).sort(
+    (a: BlogPost, b: BlogPost) =>
+      b.data.pubDate.getTime() - a.data.pubDate.getTime()
+  );
+
+  const lastPage = Math.max(1, Math.ceil(posts.length / PER_PAGE));
+
+  const paths = Array.from({ length: Math.max(0, lastPage - 1) }, (_, i) => {
+    const page = (i + 2).toString();
+    return { params: { page } };
+  });
+
+  return paths;
+}
+
+const PER_PAGE = 6;
+
+const raw = Astro.params.page;
+const currentPage = Math.max(1, Number(raw ?? 1));
+const posts: BlogPost[] = (
+  await getCollection<"blog">("blog", (entry: BlogPost) => !entry.data.draft)
+).sort(
+  (a: BlogPost, b: BlogPost) =>
+    b.data.pubDate.getTime() - a.data.pubDate.getTime()
+);
+
+const lastPage = Math.max(1, Math.ceil(posts.length / PER_PAGE));
+
+if (
+  !Number.isFinite(currentPage) ||
+  currentPage < 1 ||
+  currentPage > lastPage
+) {
+  return new Response(null, { status: 404 });
+}
+
+const start = (currentPage - 1) * PER_PAGE;
+const end = start + PER_PAGE;
+const pageItems: BlogPost[] = posts.slice(start, end);
+
+const pageHref = (n: number) =>
+  n === 1 ? "/limulus/blog/" : `/limulus/blog/${n}/`;
+const hasPrev = currentPage > 1;
+const hasNext = currentPage < lastPage;
+---
+
+<Layout title={`Blog — strona ${currentPage}`}>
+  <Menu white />
+  <section class="blog-hero">
+    <img src={BlogHero.src} alt="Blog Hero" />
+    <div class="blog-hero-background"></div>
+    <h1>Blog</h1>
+  </section>
+
+  <section class="blog">
+    <div class="container">
+      <div class="blog-list">
+        {
+          pageItems.map((p: BlogPost) => (
+            <BlogCard
+              href={`/limulus/blog/${p.slug}/`}
+              title={p.data.title}
+              date={p.data.pubDate}
+              description={p.data.description}
+              image={p.data.heroImage}
+              imageAlt={p.data.imageAlt}
+            />
+          ))
+        }
+      </div>
+
+      {
+        lastPage > 1 && (
+          <nav class="pagination" aria-label="Pagination">
+            {hasPrev ? (
+              <a
+                class="page-arrow"
+                href={pageHref(currentPage - 1)}
+                aria-label="Poprzednia strona"
+              >
+                <img src={ArrowLeft.src} alt="Strzałka w lewo" />
+              </a>
+            ) : (
+              <a class="page-arrow disabled" aria-disabled="true">
+                <img src={ArrowLeft.src} alt="Strzałka w lewo" />
+              </a>
+            )}
+
+            <ul>
+              {Array.from({ length: lastPage }, (_, i) => i + 1).map((n) => (
+                <li>
+                  <a
+                    class={["page-num", n === currentPage && "is-active"]
+                      .filter(Boolean)
+                      .join(" ")}
+                    href={pageHref(n)}
+                    aria-current={n === currentPage ? "page" : undefined}
+                  >
+                    {n}
+                  </a>
+                </li>
+              ))}
+            </ul>
+
+            {hasNext ? (
+              <a
+                class="page-arrow"
+                href={pageHref(currentPage + 1)}
+                aria-label="Następna strona"
+              >
+                <img src={ArrowRight.src} alt="Strzałka w prawo" />
+              </a>
+            ) : (
+              <a class="page-arrow disabled" aria-disabled="true">
+                <img src={ArrowRight.src} alt="Strzałka в prawo" />
+              </a>
+            )}
+          </nav>
+        )
+      }
+    </div>
+  </section>
+  <Footer />
+</Layout>

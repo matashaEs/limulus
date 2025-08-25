@@ -1,26 +1,41 @@
 ---
+import LogoPrimary from "../assets/icons/logo-primary.svg";
 import Logo from "../assets/icons/logo.svg";
 import Button from "../components/ui/Button.astro";
+
+const { white = false } = Astro.props;
 ---
 
-<header class="container-fluid menu">
+<header class={`container-fluid menu ${white ? "menu--white" : ""}`}>
   <div class="container menu-container">
     <a href="/limulus">
-      <img src={Logo.src} alt="Limulus logo" class="menu-logo" />
+      {
+        white ? (
+          <img src={LogoPrimary.src} alt="Limulus logo" class="menu-logo" />
+        ) : (
+          <img src={Logo.src} alt="Limulus logo" class="menu-logo" />
+        )
+      }
     </a>
     <div class="menu-right">
-      <a href="/limulus/" class="p--big menu-blog">Blog</a>
-      <Button label="Zapisz się" href="#about" white />
+      <a href="/limulus/blog" class="p--big menu-blog">Blog</a>
+      {
+        white ? (
+          <Button label="Zapisz się" href="/limulus#about" />
+        ) : (
+          <Button label="Zapisz się" href="/limulus#about" white />
+        )
+      }
     </div>
   </div>
 </header>
 
-<header class="container-fluid mobile-menu">
+<header class={`container-fluid mobile-menu ${white ? "menu--white" : ""}`}>
   <div class="menu-top container">
     <a href="/limulus">
       <img src={Logo.src} alt="Limulus logo" class="menu-logo" />
     </a>
-    <a href="/limulus/" class="p--big menu-blog">Blog</a>
+    <a href="/limulus/blog" class="p--big menu-blog">Blog</a>
   </div>
 </header>
 

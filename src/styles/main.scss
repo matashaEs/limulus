@@ -1,7 +1,7 @@
+@use './typography.scss';
 @use './common.scss';
 @use './colors.scss';
 @use './fonts.scss';
-@use './typography.scss';
 @use './grid.scss';
 @use './button.scss';
 @use './index/hero.scss';
@@ -18,3 +18,7 @@
 @use './index/faq.scss';
 @use './index/contact.scss';
 @use './index/booking.scss';
+@use './blog/blog.scss';
+@use './blog/post.scss';
+@use './blog/blog-hero.scss';
+@use './blog/blog-card.scss';

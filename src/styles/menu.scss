@@ -49,6 +49,14 @@
         height: 80px;
         padding: 0;
 
+        &--white {
+            background: var(--white);
+
+            .p--big {
+                color: var(--primary-700);
+            }
+        }
+
         &-container {
             display: flex;
             justify-content: space-between;
