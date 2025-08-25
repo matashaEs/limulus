@@ -1,26 +1,131 @@
 ---
 import Events from "../assets/event.webp";
+import Button from "../components/ui/Button.astro";
+import "flatpickr/dist/flatpickr.css";
 ---
 
 <section class="booking">
   <div class="container">
+    <h2>Zapisz się na wydarzenie</h2>
     <div class="booking-content">
       <div class="booking-info">
-        <h2>Zapisz się na wydarzenie</h2>
         <h5 class="booking-subtitle">
           Nie czekaj, aż konkurencja zacznie działać szybciej od Ciebie.
         </h5>
-        <div class="booking-image-container">
-          <img src={Events.src} alt="Lokalizacja" />
-          <div class="booking-image-overlay"></div>
+        <div class="booking-image">
+          <div class="booking-image-container">
+            <img src={Events.src} alt="Lokalizacja" />
+            <div class="booking-image-overlay"></div>
+          </div>
+        </div>
+        <div class="booking-deadlines">
+          <p class="p--small booking-deadlines-title">Terminy:</p>
+          <ul>
+            <li><p class="p--small">23.09 / Warszawa - 17:30, 20:30</p></li>
+            <li><p class="p--small">21.10 / Warszawa - 17:30, 20:30</p></li>
+            <li><p class="p--small">07.10 / Warszawa - 17:30, 20:30</p></li>
+          </ul>
         </div>
       </div>
       <div class="booking-form">
-        <h3>Limulus AI Live Demo Day</h3>
-        <p>Spotkanie z zespołem</p>
-        <p>30 mins • Web conference</p>
-        <form class="booking-form">
-          <button type="submit" class="btn-primary">Umów się</button>
+        <h6 class="booking-form-title">Limulus AI Live Demo Day</h6>
+        <form
+          class="booking-fields"
+          id="bookingForm"
+          method="post"
+          autocomplete="on"
+          novalidate
+        >
+          <h3 class="form-message" id="formMessage"></h3>
+          <div class="booking-field">
+            <label class="booking-label" for="fullName">Imię i nazwisko*</label>
+            <input
+              class="booking-input"
+              type="text"
+              id="fullName"
+              name="name"
+              placeholder="Imię i nazwisko*"
+              required
+            />
+            <div class="error-message" id="fullNameError"></div>
+          </div>
+
+          <div class="booking-field">
+            <label class="booking-label" for="company">Firma*</label>
+            <input
+              class="booking-input"
+              type="text"
+              id="company"
+              name="company"
+              placeholder="Firma*"
+              required
+            />
+            <div class="error-message" id="companyError"></div>
+          </div>
+
+          <div class="booking-field">
+            <label class="booking-label" for="email">E-mail*</label>
+            <input
+              class="booking-input"
+              type="email"
+              id="email"
+              name="email"
+              placeholder="E-mail*"
+              required
+            />
+            <div class="error-message" id="emailError"></div>
+          </div>
+
+          <div class="booking-field">
+            <label class="booking-label" for="phone">Telefon*</label>
+            <input
+              class="booking-input"
+              type="tel"
+              id="phone"
+              name="phone"
+              placeholder="Telefon*"
+              required
+            />
+            <div class="error-message" id="phoneError"></div>
+          </div>
+
+          <div class="booking-field booking-field--date">
+            <label class="booking-label" for="eventDate"
+              >Wybierz termin wydarzenia*</label
+            >
+
+            <input
+              class="booking-input booking-input--date"
+              type="text"
+              id="eventDate"
+              name="eventDate"
+              placeholder="Wybierz termin wydarzenia*"
+              required
+              readonly
+            />
+            <div class="error-message" id="eventDateError"></div>
+          </div>
+
+          <div class="booking-consents">
+            <label class="booking-checkbox">
+              <input type="checkbox" name="marketingConsent" />
+              <span class="booking-checkbox-box" aria-hidden="true"></span>
+              <span class="booking-checkbox-label">Zgoda marketingowa</span>
+            </label>
+
+            <label class="booking-checkbox">
+              <input type="checkbox" name="rodoConsent" />
+              <span class="booking-checkbox-box" aria-hidden="true"></span>
+              <span class="booking-checkbox-label">Zgoda RODO</span>
+            </label>
+            <div class="error-message" id="rodoError"></div>
+          </div>
+
+          <div class="booking-actions">
+            <button class="button event-button" type="submit" id="submitBtn">
+              Zapisz się
+            </button>
+          </div>
         </form>
       </div>
     </div>
