@@ -1,100 +1,142 @@
 ---
 import Layout from "../../layouts/Layout.astro";
+import Menu from "../../components/Menu.astro";
+import Footer from "../../components/Fotter.astro";
+import { Image } from "astro:assets";
+import ArrowBack from "../../assets/icons/arrow-back.svg";
 import { getCollection } from "astro:content";
-import type { GetStaticPaths } from "astro";
 import type { BlogPost } from "../../types/blog";
+import ArrowLeft from "../../assets/icons/arrow-left.svg";
+import ArrowRight from "../../assets/icons/arrow-right.svg";
 
-const formatDate = (d: Date) =>
-  d.toLocaleDateString("uk-UA", { year: "numeric", month: "long" });
+const fmtDate = (d: Date) =>
+  d.toLocaleDateString("pl-PL", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
 
-const readingTime = (text: string, wpm = 200) =>
-  Math.max(1, Math.round(text.trim().split(/\s+/).length / wpm));
+function readingTime(text: string) {
+  const words = text.trim().split(/\s+/).length;
+  return Math.max(1, Math.round(words / 200));
+}
 
-// генеруємо шляхи і підсовуємо сусідів
-export const getStaticPaths: GetStaticPaths = async () => {
-  const posts: BlogPost[] = (
-    await getCollection<"blog">("blog", (e: BlogPost) => !e.data.draft)
-  ).sort(
-    (a: BlogPost, b: BlogPost) =>
-      b.data.pubDate.getTime() - a.data.pubDate.getTime()
-  );
-
-  return posts.map((post, i) => ({
-    params: { slug: post.slug },
-    props: { post, prev: posts[i + 1] ?? null, next: posts[i - 1] ?? null },
+export async function getStaticPaths() {
+  const posts = await getCollection("blog", (e) => !e.data.draft);
+  return posts.map((p) => ({
+    params: { slug: p.slug },
   }));
-};
+}
 
-const { post, prev, next } = Astro.props as {
-  post: BlogPost;
-  prev: BlogPost | null;
-  next: BlogPost | null;
-};
+const { slug } = Astro.params as { slug: string };
 
-const { Content } = await post.render();
-const pubISO = post.data.pubDate.toISOString();
-const pubHuman = formatDate(post.data.pubDate);
-const minutes = readingTime(post.body);
+const posts: BlogPost[] = (
+  await getCollection<"blog">("blog", (e: BlogPost) => !e.data.draft)
+).sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
+
+const currentIndex = posts.findIndex((p) => p.slug === slug);
+if (currentIndex === -1) {
+  return new Response(null, { status: 404 });
+}
+const post = posts[currentIndex];
+
+const nextPost = posts[currentIndex - 1];
+const prevPost = posts[currentIndex + 1];
+
+const readMins = readingTime(post.body);
+
+const heroImg = post.data.heroImage;
+const heroAlt = post.data.imageAlt ?? post.data.title;
+
+const toListHref = "/limulus/blog/";
+const toPostHref = (p: BlogPost) => `/limulus/blog/${p.slug}/`;
 ---
 
-<Layout title={post.data.title} description={post.data.description}>
+<Layout title={post.data.title}>
+  <Menu white />
+
   <section class="post-hero">
     <div class="container post-hero__inner">
-      <div class="post-hero__text">
-        <a class="back-link" href="/blog/">← Вріз до списку</a>
-        <h1 class="post-title">{post.data.title}</h1>
+      <div class="post-hero__left">
+        <a class="back-link" href={toListHref}>
+          <img src={ArrowBack.src} alt="" aria-hidden="true" />
+          <p class="p--small">Wróć do listy</p>
+        </a>
+
+        <h1 class="post-title h3">{post.data.title}</h1>
+      </div>
+
+      <div class="post-hero__image">
         {
-          post.data.description && (
-            <p class="post-subtitle">{post.data.description}</p>
+          heroImg ? (
+            <Image src={heroImg} alt={heroAlt} />
+          ) : (
+            <img src="/assets/blog/placeholder.jpg" alt={heroAlt} />
           )
         }
       </div>
-      {
-        post.data.heroImage && (
-          <div class="post-hero__image">
-            <img
-              src={post.data.heroImage}
-              alt={post.data.imageAlt ?? post.data.title}
-            />
-          </div>
-        )
-      }
     </div>
   </section>
 
-  <!-- BODY + SIDEBAR -->
-  <section class="container post-body">
-    <div class="post-main">
-      <p class="post-meta">
-        <time datetime={pubISO}>{pubHuman}</time>
-        <span class="dot">•</span>
-        <span>Час читання: {minutes} хв</span>
-      </p>
+  <section class="post-body">
+    <div class="container post-grid">
+      <main class="post-main">
+        <h5 class="post-subtitle">{post.data.description}</h5>
+        <hr class="post-divider" />
+        <div class="post-meta">
+          <p class="p--small">{fmtDate(post.data.pubDate)}</p>
+          <p class="p--small">
+            Szacowany czas czytania: {readMins}
+            {readMins === 1 ? "minuta" : "minut"}
+          </p>
+        </div>
 
-      <article class="post-content">
-        <Content />
-      </article>
+        <article class="prose" set:html={post.body} />
+      </main>
+
+      <aside class="post-aside">
+        {
+          nextPost && (
+            <a class="side-card side-card--next" href={toPostHref(nextPost)}>
+              <div class="side-card__top">
+                <span class="side-card__label">Następny Post</span>
+                <img
+                  src={ArrowRight.src}
+                  alt="Następny Post"
+                  aria-hidden="true"
+                />
+              </div>
+              <p class="side-card__date">{fmtDate(nextPost.data.pubDate)}</p>
+              <p class="side-card__title">{nextPost.data.title}</p>
+              {nextPost.data.description && (
+                <p class="side-card__desc">{nextPost.data.description}</p>
+              )}
+            </a>
+          )
+        }
+
+        {
+          prevPost && (
+            <a class="side-card side-card--prev" href={toPostHref(prevPost)}>
+              <div class="side-card__top">
+                <img
+                  src={ArrowLeft.src}
+                  alt="Poprzedni Post"
+                  aria-hidden="true"
+                />
+                <span class="side-card__label">Poprzedni Post</span>
+              </div>
+              <p class="side-card__date">{fmtDate(prevPost.data.pubDate)}</p>
+              <p class="side-card__title">{prevPost.data.title}</p>
+              {prevPost.data.description && (
+                <p class="side-card__desc">{prevPost.data.description}</p>
+              )}
+            </a>
+          )
+        }
+      </aside>
     </div>
-
-    <aside class="post-aside">
-      {
-        next && (
-          <a class="aside-card" href={`/blog/${next.slug}/`}>
-            <span class="aside-label">Наступний пост</span>
-            <h3>{next.data.title}</h3>
-            {next.data.description && <p>{next.data.description}</p>}
-          </a>
-        )
-      }
-      {
-        prev && (
-          <a class="aside-card" href={`/blog/${prev.slug}/`}>
-            <span class="aside-label">Попередній пост</span>
-            <h3>{prev.data.title}</h3>
-            {prev.data.description && <p>{prev.data.description}</p>}
-          </a>
-        )
-      }
-    </aside>
   </section>
+
+  <Footer />
 </Layout>
